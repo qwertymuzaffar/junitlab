@@ -45,11 +45,26 @@ public class CalculatorTest {
     }
 
     @Test
+    void testSqrt() {
+        double result = calculator.sqrt(100);
+        assertThat(result).isEqualTo(10.0);
+        System.out.println("✅ √100 = " + result);
+    }
+
+    @Test
     void testDivideByZero() {
         assertThatThrownBy(() -> calculator.divide(10, 0))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Cannot divide by zero!");
         System.out.println("✅ Exception test passed");
+    }
+
+    @Test
+    void testSquareRootWithNegativeNumber() {
+        assertThatThrownBy(() -> calculator.sqrt(-4))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Cannot calculate square root of negative number!");
+        System.out.println("✅ √(-4) exception test passed");
     }
 
     @ParameterizedTest
@@ -70,5 +85,21 @@ public class CalculatorTest {
         int result = calculator.add(a, b);
         assertThat(result).isEqualTo(expected);
         System.out.println("✅ " + a + " + " + b + " = " + result);
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "16.0, 4.0",
+            "25.0, 5.0",
+            "2.0, 1.414",
+            "0.0, 0.0",
+            "1.0, 1.0",
+            "9.0, 3.0",
+            "4.0, 2.0"
+    })
+    void testSqrt(double number, double expected) {
+        double result = calculator.sqrt(number);
+        assertThat(result).isCloseTo(expected, within(0.01));
+        System.out.println("✅ √" + number + " = " + result);
     }
 }

@@ -17,6 +17,14 @@ public class Calculator {
         return a * b;
     }
 
+    public double sqrt(double number) {
+        if (number < 0) {
+            throw new IllegalArgumentException("Cannot calculate square root of negative number!");
+        }
+
+        return Math.sqrt(number);
+    }
+
     public double divide(int a, int b) {
         if (b == 0) {
             throw new IllegalArgumentException("Cannot divide by zero!");
